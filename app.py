@@ -24,8 +24,13 @@ default_symbols = ["AAPL", "GOOGL", "MSFT", "TSLA", "AMZN"]
 stock_symbols = st.sidebar.multiselect(
     "Select Stock Symbols",
     options=["AAPL", "GOOGL", "MSFT", "TSLA", "AMZN", "NVDA", "META", "NFLX", "AMD", "INTC"],
-    default=default_symbols[:2]
+    default=["AAPL", "MSFT"],  # Start with only 2 stocks to avoid rate limits
+    max_selections=3  # Limit to 3 stocks maximum
 )
+
+# Warning message
+if len(stock_symbols) > 2:
+    st.sidebar.warning("⚠️ Selecting many stocks may trigger rate limits. Start with 1-2 stocks.")
 
 # Date range selection
 st.sidebar.subheader("Date Range")
